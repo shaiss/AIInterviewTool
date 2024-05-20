@@ -1,0 +1,52 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model QuestionGenerationAgent {
+  apiKey            String?
+  createdAt         DateTime @default(now())
+  generatedQuestion String?
+  id                String   @id @default(cuid())
+  transcript        String?
+  updatedAt         DateTime @updatedAt
+}
+
+model TranscriptionAgent {
+  audioFilePath String?
+  createdAt     DateTime @default(now())
+  id            String   @id @default(cuid())
+  transcript    String?
+  updatedAt     DateTime @updatedAt
+}
+
+model ContextAnalysisAgent {
+  createdAt DateTime @default(now())
+  entities  Json?
+  id        String   @id @default(cuid())
+  text      String?
+  updatedAt DateTime @updatedAt
+}
+
+model GuidanceAgent {
+  createdAt  DateTime @default(now())
+  guidance   String?
+  id         String   @id @default(cuid())
+  keyTopics  Json?
+  transcript String?
+  updatedAt  DateTime @updatedAt
+}
+
+model SupervisoryAgent {
+  backgroundInfo     String?
+  context            String?
+  createdAt          DateTime @default(now())
+  id                 String   @id @default(cuid())
+  suggestedQuestions Json?
+  summary            String?
+  updatedAt          DateTime @updatedAt
+}
